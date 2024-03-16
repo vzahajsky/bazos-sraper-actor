@@ -1,0 +1,25 @@
+{
+    "title": "Bazos.cz crawler input schema",
+    "description": "",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchQueries": {
+            "title": "Search queries",
+            "type": "array",
+            "description": "Search queries to search and merge results in one run",
+            "editor": "stringList",
+            "maxItems": 5,
+            "uniqueItems": true
+        },
+        "maxRequestsPerCrawl": {
+            "title": "Max Requests per Crawl",
+            "type": "integer",
+            "description": "Approximate number of how many ads you want to load.",
+            "default": 100
+        }
+    },
+    "required": [
+        "searchQueries"
+    ]
+}

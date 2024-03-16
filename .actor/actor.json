@@ -1,0 +1,15 @@
+{
+	"actorSpecification": 1,
+	"name": "bazos-actor",
+	"title": "Bazos.cz scraper actor",
+	"description": "Scrapes ads according to the specified filters",
+	"version": "0.0",
+	"meta": {
+		"templateId": "ts-crawlee-cheerio"
+	},
+	"input": "./input_schema.json",
+	"dockerfile": "./Dockerfile",
+	"storages": {
+		"dataset": "./dataset_schema.json"
+	}
+}

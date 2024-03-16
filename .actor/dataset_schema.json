@@ -1,0 +1,53 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Overview",
+      "transformation": {
+        "fields": [
+          "imageUrl",
+          "title",
+          "priceRaw",
+          "content",
+          "views",
+          "url",
+          "locationName"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "imageUrl": {
+            "label": "Image",
+            "format": "image"
+          },
+          "title": {
+            "label": "Title",
+            "format": "text"
+          },
+          "priceRaw": {
+            "label": "Price",
+            "format": "text"
+          },
+          "content": {
+            "label": "Content",
+            "format": "text"
+          },
+          "views": {
+            "label": "Views",
+            "format": "number"
+          },
+          "_url": {
+            "label": "Link",
+            "format": "link"
+          },
+          "locationName": {
+            "label": "Location",
+            "format": "text"
+          }
+        }
+      }
+    }
+  }
+}
