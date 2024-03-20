@@ -28,7 +28,7 @@ export function createStartQueryUrls(input: Input): string[] {
     };
 
     urlQueryParams = Object.entries(inputParams)
-        .map(([key, value]) => (value !== null ? `&${key}=${value}` : ''))
+        .map(([key, value]) => (value !== null && value !== undefined ? `&${key}=${value}` : ''))
         .join('');
 
     return input.searchQueries.map((searchQuery) => BASE_URL + searchQuery.split(' ').join('+') + urlQueryParams);
