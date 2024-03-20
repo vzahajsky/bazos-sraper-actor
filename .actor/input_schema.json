@@ -30,6 +30,21 @@
             "editor": "number",
             "nullable": true
         },
+        "postalCode": {
+            "title": "Postal code",
+            "type": "integer",
+            "description": "Postal code of area where to search.",
+            "editor": "number",
+            "nullable": true
+        },
+        "distance": {
+            "title": "Price to",
+            "type": "integer",
+            "description": "The size of the circle in which to look.",
+            "editor": "number",
+            "minimum": 26,
+            "nullable": true
+        },
         "maxRequestsPerCrawl": {
             "title": "Max Requests per Crawl",
             "type": "integer",

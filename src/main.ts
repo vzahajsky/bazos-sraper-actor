@@ -8,6 +8,8 @@ export interface Input {
     searchQueries: string[];
     minPrice: Nullable<number>;
     maxPrice: Nullable<number>;
+    postalCode: Nullable<number>;
+    distance: Nullable<number>;
     maxRequestsPerCrawl: number;
 }
 
@@ -18,6 +20,8 @@ const defaultInput: Input = {
     maxRequestsPerCrawl: 20,
     minPrice: null,
     maxPrice: null,
+    postalCode: null,
+    distance: null,
 };
 
 const userInput = await Actor.getInput<Input>() ?? defaultInput;

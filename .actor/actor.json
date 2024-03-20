@@ -3,7 +3,7 @@
 	"name": "bazos-scaper-actor",
 	"title": "Bazos.cz scraper actor",
 	"description": "Scrapes ads according to the specified filters",
-	"version": "0.0",
+	"version": "0.1",
 	"meta": {
 		"templateId": "ts-crawlee-cheerio"
 	},

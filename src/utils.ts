@@ -18,17 +18,20 @@ export function extractISODateFromString(text: string): string | null {
 }
 
 export function createStartQueryUrls(input: Input): string[] {
-    let urlSearchParams = '';
+    let urlQueryParams = '';
 
-    if (input.minPrice !== null) {
-        urlSearchParams += `&cenaod=${input.minPrice}`;
-    }
+    const inputParams = {
+        cenaod: input.minPrice,
+        cenado: input.maxPrice,
+        hlokalita: input.postalCode,
+        humkreis: input.distance,
+    };
 
-    if (input.maxPrice !== null) {
-        urlSearchParams += `&cenado=${input.maxPrice}`;
-    }
+    urlQueryParams = Object.entries(inputParams)
+        .map(([key, value]) => (value !== null ? `&${key}=${value}` : ''))
+        .join('');
 
-    return input.searchQueries.map((searchQuery) => BASE_URL + searchQuery.split(' ').join('+') + urlSearchParams);
+    return input.searchQueries.map((searchQuery) => BASE_URL + searchQuery.split(' ').join('+') + urlQueryParams);
 }
 
 export async function validateInput(input: Input): Promise<void> {
