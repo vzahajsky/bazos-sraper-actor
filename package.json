@@ -1,6 +1,6 @@
 {
-	"name": "bazos-actor",
-	"version": "0.0.1",
+	"name": "bazos-sraper-actor",
+	"version": "0.1.0",
 	"type": "module",
 	"description": "Bazos.cz scraper actor",
 	"engines": {

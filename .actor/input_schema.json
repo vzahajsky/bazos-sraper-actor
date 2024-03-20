@@ -8,9 +8,42 @@
             "title": "Search queries",
             "type": "array",
             "description": "Search queries to search and merge results in one run",
+            "prefill": [
+                "bmw 1200gs",
+                "1200 gs"
+            ],
             "editor": "stringList",
             "maxItems": 5,
             "uniqueItems": true
+        },
+        "minPrice": {
+            "title": "Price from",
+            "type": "integer",
+            "description": "Lowest price",
+            "editor": "number",
+            "nullable": true
+        },
+        "maxPrice": {
+            "title": "Price to",
+            "type": "integer",
+            "description": "Highest price",
+            "editor": "number",
+            "nullable": true
+        },
+        "postalCode": {
+            "title": "Postal code",
+            "type": "integer",
+            "description": "Postal code of area where to search.",
+            "editor": "number",
+            "nullable": true
+        },
+        "distance": {
+            "title": "Price to",
+            "type": "integer",
+            "description": "The size of the circle in which to look.",
+            "editor": "number",
+            "minimum": 26,
+            "nullable": true
         },
         "maxRequestsPerCrawl": {
             "title": "Max Requests per Crawl",

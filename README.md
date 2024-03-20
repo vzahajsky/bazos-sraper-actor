@@ -21,9 +21,6 @@ Some features that will be added later:
   - from last run
 - search by
   - categories
-  - location
-  - distance
-  - price
 - add support for Bazos in other countries 
 
-Do you have idea on feature? Feel free to create issue.
+Do you have idea/request on feature? Feel free to create issue.
