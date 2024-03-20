@@ -1,4 +1,4 @@
-import { log } from 'apify';
+import { Actor, log } from 'apify';
 import { BASE_URL } from './const.js';
 import { Input } from './main.js';
 
@@ -17,14 +17,32 @@ export function extractISODateFromString(text: string): string | null {
     return null;
 }
 
-export function createStartQueryUrls(searchQueries: string[]): string[] {
-    return searchQueries.map((searchQuery) => BASE_URL + searchQuery.split(' ').join('+'));
+export function createStartQueryUrls(input: Input): string[] {
+    let urlSearchParams = '';
+
+    if (input.minPrice !== null) {
+        urlSearchParams += `&cenaod=${input.minPrice}`;
+    }
+
+    if (input.maxPrice !== null) {
+        urlSearchParams += `&cenado=${input.maxPrice}`;
+    }
+
+    return input.searchQueries.map((searchQuery) => BASE_URL + searchQuery.split(' ').join('+') + urlSearchParams);
 }
 
-export function validateInput(input: Input): void {
+export async function validateInput(input: Input): Promise<void> {
     // check inputs
     if (!input || !input.searchQueries || !input.maxRequestsPerCrawl) {
-        throw new Error('Invalid input, must be a JSON object with the '
+        await Actor.fail('Invalid input, must be a JSON object with the '
             + '"searchQueries" and "maxRequestsPerCrawl" field!');
+    }
+
+    if (!(input.searchQueries instanceof Array)) {
+        await Actor.fail('"searchQueries" have to be array!');
+    }
+
+    if ((input.minPrice && input.maxPrice) && (input.minPrice > input.maxPrice)) {
+        await Actor.fail('"minPrice" is bigger then "maxPrice"!');
     }
 }

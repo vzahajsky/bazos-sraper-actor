@@ -1,6 +1,6 @@
 {
 	"actorSpecification": 1,
-	"name": "bazos-actor",
+	"name": "bazos-scaper-actor",
 	"title": "Bazos.cz scraper actor",
 	"description": "Scrapes ads according to the specified filters",
 	"version": "0.0",

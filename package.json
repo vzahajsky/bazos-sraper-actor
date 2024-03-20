@@ -1,5 +1,5 @@
 {
-	"name": "bazos-actor",
+	"name": "bazos-sraper-actor",
 	"version": "0.0.1",
 	"type": "module",
 	"description": "Bazos.cz scraper actor",
