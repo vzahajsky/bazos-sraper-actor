@@ -2,9 +2,10 @@ import { Actor } from 'apify';
 import { CheerioCrawler } from 'crawlee';
 import { router } from './routes.js';
 import { createStartQueryUrls, validateInput } from './utils.js';
-import { Nullable } from './types.js';
+import {CountryCode, Nullable} from './types.js';
 
 export interface Input {
+    countryCode: CountryCode;
     searchQueries: string[];
     minPrice: Nullable<number>;
     maxPrice: Nullable<number>;
@@ -16,6 +17,7 @@ export interface Input {
 await Actor.init();
 
 const defaultInput: Input = {
+    countryCode: 'cz',
     searchQueries: ['bmw 1200gs', '1200 gs'],
     maxRequestsPerCrawl: 20,
     minPrice: null,

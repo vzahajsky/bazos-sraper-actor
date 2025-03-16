@@ -4,6 +4,15 @@
     "type": "object",
     "schemaVersion": 1,
     "properties": {
+        "countryCode": {
+            "title": "Country code",
+            "type": "string",
+            "description": "Select country to use",
+            "editor": "select",
+            "default": "cz",
+            "enum": ["cz", "sk"],
+            "enumTitles": ["CZ", "SK"]
+        },
         "searchQueries": {
             "title": "Search queries",
             "type": "array",
