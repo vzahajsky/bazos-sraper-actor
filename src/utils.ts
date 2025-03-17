@@ -1,5 +1,5 @@
 import { Actor, log } from 'apify';
-import { BASE_URL } from './const.js';
+import { getBaseUrl, setCountryCode} from './const.js';
 import { Input } from './main.js';
 
 export function extractISODateFromString(text: string): string | null {
@@ -31,7 +31,8 @@ export function createStartQueryUrls(input: Input): string[] {
         .map(([key, value]) => (value !== null && value !== undefined ? `&${key}=${value}` : ''))
         .join('');
 
-    return input.searchQueries.map((searchQuery) => BASE_URL + searchQuery.split(' ').join('+') + urlQueryParams);
+    setCountryCode(input.countryCode);
+    return input.searchQueries.map((searchQuery) => getBaseUrl() + searchQuery.split(' ').join('+') + urlQueryParams);
 }
 
 export async function validateInput(input: Input): Promise<void> {

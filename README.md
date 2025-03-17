@@ -24,3 +24,7 @@ Some features that will be added later:
 - add support for Bazos in other countries 
 
 Do you have idea/request on feature? Feel free to create issue.
+
+## Changelog
+### v0.1.0(2025-03-16)
+- possibility to choose CZ or SK variant
