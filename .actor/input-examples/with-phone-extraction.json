@@ -1,0 +1,17 @@
+{
+  "countryCode": "cz",
+  "searchQueries": ["kočárek"],
+  "maxRequestsPerCrawl": 50,
+  "enableAutoVerification": true,
+  "testCookiesBeforeRun": true,
+  "phoneServiceConfig": {
+    "provider": "sms-activate",
+    "apiKey": "YOUR_SMS_ACTIVATE_API_KEY_HERE",
+    "apiUrl": "https://api.sms-activate.org/stubs/handler_api.php"
+  },
+  "smsServiceConfig": {
+    "provider": "sms-activate",
+    "apiKey": "YOUR_SMS_ACTIVATE_API_KEY_HERE",
+    "apiUrl": "https://api.sms-activate.org/stubs/handler_api.php"
+  }
+}

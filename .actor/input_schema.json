@@ -59,6 +59,76 @@
             "type": "integer",
             "description": "Approximate number of how many ads you want to load.",
             "default": 100
+        },
+        "enableAutoVerification": {
+            "title": "Enable automatic phone verification",
+            "type": "boolean",
+            "description": "Automatically verify account to extract phone numbers from ads. Requires phoneServiceConfig and smsServiceConfig.",
+            "default": false
+        },
+        "testCookiesBeforeRun": {
+            "title": "Test cookies before run",
+            "type": "boolean",
+            "description": "Test existing cookies validity before starting the scraper",
+            "default": true
+        },
+        "phoneServiceConfig": {
+            "title": "Phone service configuration",
+            "type": "object",
+            "description": "Configuration for temporary phone number service (required when enableAutoVerification is true)",
+            "editor": "json",
+            "properties": {
+                "provider": {
+                    "title": "Provider",
+                    "type": "string",
+                    "description": "Phone service provider",
+                    "enum": ["sms-activate", "5sim", "custom"],
+                    "default": "sms-activate"
+                },
+                "apiKey": {
+                    "title": "API Key",
+                    "type": "string",
+                    "description": "API key from provider",
+                    "editor": "textfield",
+                    "isSecret": true
+                },
+                "apiUrl": {
+                    "title": "API URL",
+                    "type": "string",
+                    "description": "Provider API endpoint",
+                    "editor": "textfield",
+                    "default": "https://api.sms-activate.org/stubs/handler_api.php"
+                }
+            }
+        },
+        "smsServiceConfig": {
+            "title": "SMS service configuration",
+            "type": "object",
+            "description": "Configuration for SMS receiving service (required when enableAutoVerification is true)",
+            "editor": "json",
+            "properties": {
+                "provider": {
+                    "title": "Provider",
+                    "type": "string",
+                    "description": "SMS service provider",
+                    "enum": ["sms-activate", "5sim", "custom"],
+                    "default": "sms-activate"
+                },
+                "apiKey": {
+                    "title": "API Key",
+                    "type": "string",
+                    "description": "API key from provider",
+                    "editor": "textfield",
+                    "isSecret": true
+                },
+                "apiUrl": {
+                    "title": "API URL",
+                    "type": "string",
+                    "description": "Provider API endpoint",
+                    "editor": "textfield",
+                    "default": "https://api.sms-activate.org/stubs/handler_api.php"
+                }
+            }
         }
     },
     "required": [

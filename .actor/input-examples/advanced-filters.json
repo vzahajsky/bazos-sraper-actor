@@ -1,0 +1,11 @@
+{
+  "countryCode": "sk",
+  "searchQueries": ["bmw 1200gs", "1200 gs"],
+  "maxRequestsPerCrawl": 200,
+  "minPrice": 5000,
+  "maxPrice": 15000,
+  "postalCode": 81000,
+  "distance": 50,
+  "enableAutoVerification": false,
+  "testCookiesBeforeRun": true
+}
