@@ -2,6 +2,17 @@
  * SMS Service
  * Handles receiving and parsing SMS messages with verification codes
  * 
+ * ⚠️ CURRENTLY NOT USED - NOT FULLY IMPLEMENTED
+ * 
+ * This service was prepared for automatic verification but is NOT in active use.
+ * The Actor now uses MANUAL COOKIES (bid, bkod) from input instead.
+ * 
+ * To fully implement auto-verification:
+ * 1. Sign up with SMS-Activate, 5sim, or similar provider
+ * 2. Get API key
+ * 3. Replace mock implementations with real API calls
+ * 4. Uncomment auto-verification code in main.ts
+ * 
  * NOTE: This is a MOCK implementation for development.
  * TODO: Integrate with real SMS service (sms-activate.org, 5sim.net, etc.)
  */

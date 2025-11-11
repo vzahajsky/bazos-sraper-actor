@@ -5,7 +5,5 @@
   "minPrice": null,
   "maxPrice": null,
   "postalCode": null,
-  "distance": null,
-  "enableAutoVerification": false,
-  "testCookiesBeforeRun": true
+  "distance": null
 }

@@ -2,6 +2,17 @@
  * Verification Workflow
  * Orchestrates the complete phone verification process for Bazos.cz
  * 
+ * ⚠️ CURRENTLY NOT USED - NOT FULLY IMPLEMENTED
+ * 
+ * This workflow was prepared for automatic verification but is NOT in active use.
+ * The Actor now uses MANUAL COOKIES (bid, bkod) from input instead.
+ * 
+ * To fully implement auto-verification:
+ * 1. Implement real API calls in tempPhoneService.ts and smsService.ts
+ * 2. Implement real Bazos form submission in phoneVerification.ts
+ * 3. Uncomment auto-verification code in main.ts
+ * 4. Test end-to-end workflow
+ * 
  * Flow:
  * 1. Get temp phone number from external service
  * 2. Submit phone to Bazos for verification

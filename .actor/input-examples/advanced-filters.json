@@ -5,7 +5,5 @@
   "minPrice": 5000,
   "maxPrice": 15000,
   "postalCode": 81000,
-  "distance": 50,
-  "enableAutoVerification": false,
-  "testCookiesBeforeRun": true
+  "distance": 50
 }

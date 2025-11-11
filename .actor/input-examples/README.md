@@ -12,82 +12,68 @@ Simple configuration without phone extraction:
 - Good for testing or when phone numbers are not needed
 
 ### 2. `with-phone-extraction.json` - With Phone Numbers
-Configuration with automatic phone verification:
-- **Requires external service API keys** (SMS-Activate, 5sim, etc.)
-- Automatically verifies account on first run
+Configuration with manual cookies for phone extraction:
+- **Requires your Bazos cookies** (bid, bkod)
 - Extracts phone numbers from all ads
-- Cookies saved for reuse (~30 days)
+- Tests cookies validity before run
 
-**Note:** Replace `YOUR_SMS_ACTIVATE_API_KEY_HERE` with your actual API key!
+**Note:** Replace `YOUR_BID_HERE` and `YOUR_BKOD_HERE` with your actual cookie values!
 
 ### 3. `advanced-filters.json` - Advanced Filtering
 Using all available filters:
 - Price range (minPrice, maxPrice)
 - Location filtering (postalCode, distance)
 - Multiple search queries
-- No phone extraction (set `enableAutoVerification: true` to enable)
+- No phone extraction (add `bid` and `bkod` to enable)
 
 ## How to Use
 
 1. **Choose an example** that matches your needs
 2. **Copy the JSON** to your Actor input
 3. **Modify values** as needed (keywords, prices, etc.)
-4. **Add API keys** if using phone extraction
+4. **Add cookies** if using phone extraction (see below)
 5. **Run the Actor**
 
 ## Phone Extraction Setup
 
-To use phone extraction:
+To extract phone numbers, you need to provide Bazos authentication cookies.
 
-1. Sign up for a temporary phone service:
-   - [SMS-Activate](https://sms-activate.org/) (recommended)
-   - [5sim](https://5sim.net/)
-   - Or integrate your own provider
+### Getting Cookies from Browser
 
-2. Get your API key from the provider
+1. **Login to Bazos.cz** in your browser
+2. **Open DevTools** (F12) → Application/Storage → Cookies
+3. **Copy these values:**
+   - `bid` - 8-digit number (e.g., `79580379`)
+   - `bkod` - 10-character token (e.g., `HCIIFBA50J`)
 
-3. Update `phoneServiceConfig` and `smsServiceConfig` in your input:
-   ```json
-   {
-     "enableAutoVerification": true,
-     "phoneServiceConfig": {
-       "provider": "sms-activate",
-       "apiKey": "YOUR_ACTUAL_API_KEY",
-       "apiUrl": "https://api.sms-activate.org/stubs/handler_api.php"
-     },
-     "smsServiceConfig": {
-       "provider": "sms-activate",
-       "apiKey": "YOUR_ACTUAL_API_KEY",
-       "apiUrl": "https://api.sms-activate.org/stubs/handler_api.php"
-     }
-   }
-   ```
+### Add to Input
 
-4. First run will verify automatically (~30 seconds)
+```json
+{
+  "searchQueries": ["kočárek"],
+  "maxRequestsPerCrawl": 100,
+  "bid": "79580379",
+  "bkod": "HCIIFBA50J"
+}
+```
 
-5. Subsequent runs will reuse saved cookies (no verification needed)
-
-## Cost Estimation
-
-- **Without phone extraction**: Standard Apify compute costs
-- **With phone extraction**:
-  - Initial verification: ~$0.20 - $0.50 (one-time per 30 days)
-  - Per ad: +10% compute overhead for phone API calls
-  - Monthly: ~$0.50 for cookie refresh
+**Important:**
+- `bkod` is automatically encrypted as secret in Apify
+- Cookies are valid for ~30 days
+- Actor tests cookies before each run
 
 ## Troubleshooting
 
 **Phone numbers not showing?**
-- Check if `enableAutoVerification: true`
-- Verify API keys are correct
-- Check Actor run logs for errors
-- Ensure you have credits on your phone service account
+- Check if `bid` and `bkod` are provided
+- Verify cookies are not expired
+- Make sure you can see phone numbers in browser
+- Check Actor logs for validation errors
 
-**Verification failed?**
-- Check API key is valid
-- Verify provider supports Czech numbers (+420)
-- Check provider's service status
-- Review detailed logs in Actor console
+**Cookies expired?**
+- Login to Bazos.cz again
+- Copy new `bid` and `bkod` values
+- Update Actor input
 
 ## More Information
 

@@ -1,33 +1,173 @@
 # Phone Verification Implementation Plan
 
-## 🎉 Implementation Status: COMPLETED
+## ⚠️ Implementation Status: MANUAL COOKIES RECOMMENDED
 
-**Version**: 0.2.0  
-**Completion Date**: 2025-11-11  
+**Version**: 0.2.1  
+**Last Update**: 2025-11-12  
 **Build Status**: ✅ Successful
 
-### Summary
-Kompletní implementace automatického ověření pro získání telefonních čísel z inzerátů na Bazos.cz pomocí externích služeb pro dočasná telefonní čísla a příjem SMS.
+### Current Approach: Manual Cookies (RECOMMENDED)
+
+**The Actor now uses MANUAL COOKIES from input instead of auto-verification.**
+
+**Why?**
+- ✅ Simpler and more reliable
+- ✅ No external service costs
+- ✅ No API integration needed
+- ✅ Works immediately
+- ✅ User has full control
+
+**How to use:**
+1. Login to Bazos.cz in browser
+2. Copy cookies (`bid`, `bkod`) from DevTools
+3. Add to Actor input
+4. Phone numbers extracted automatically
+
+See [README.md](./README.md) for step-by-step guide.
+
+---
+
+### Auto-Verification Status: NOT FULLY IMPLEMENTED
+
+The automatic verification system was prepared but is **NOT in active use**:
+
+- ⚠️ **External services** (tempPhoneService, smsService) - MOCK implementations only
+- ⚠️ **Bazos form submission** (phoneVerification) - MOCK implementations only
+- ⚠️ **Verification workflow** - Complete but uses mock services
+- ✅ **Cookie management** - Fully functional
+- ✅ **Phone extraction** - Fully functional
+
+**To fully implement auto-verification:**
+1. Sign up with SMS-Activate or 5sim
+2. Implement real API calls in external services
+3. Implement real Bazos form submission
+4. Uncomment auto-verification code in main.ts
+5. Test end-to-end workflow
+
+**Current recommendation:** Use manual cookies instead.
+
+---
 
 ### Completed Phases
 - ✅ **Phase 1**: Basic structure (folders, types)
 - ✅ **Phase 2**: Cookie management (saveCookies, loadCookies, testCookies, clearCookies)
 - ✅ **Phase 3**: Phone extraction (extractPhoneNumber, routes.ts integration)
 - ✅ **Phase 4**: External services (mock implementations with real API examples)
-- ✅ **Phase 5**: Bazos verification (form parsing, phone/code submission)
-- ✅ **Phase 6**: Verification workflow (7-step orchestration)
-- ✅ **Phase 7**: Main.ts integration (cookie setup, auto-verification)
+- ✅ **Phase 5**: Bazos verification (form parsing, phone/code submission - MOCK)
+- ✅ **Phase 6**: Verification workflow (7-step orchestration - uses mocks)
+- ✅ **Phase 7**: Main.ts integration (cookie setup, auto-verification commented out)
 - ✅ **Phase 8**: Error handling & resilience (try-catch, cleanup, graceful degradation)
 - ✅ **Phase 9**: Documentation (README, INPUT_SCHEMA, examples)
-- ⏳ **Phase 10**: Testing & deployment (ready for testing)
+- ✅ **Phase 11**: Manual cookies implementation (priority over auto-verification)
+- ⏳ **Phase 10**: Testing & deployment (ready for testing with manual cookies)
 
 ### Key Features
-- 🔐 Automatic authentication via temporary phone numbers
+- 🔐 **Manual cookie authentication** (RECOMMENDED - works immediately)
 - 💾 Cookie persistence (~30 day validity)
 - 🔄 Smart cookie validation and refresh
-- 🧪 Mock implementations for development
+- 🧪 Mock implementations for future auto-verification (NOT ACTIVE)
 - 📚 Comprehensive documentation
 - 🏗️ Modular architecture (Bazos services / External services / Workflows)
+
+---
+
+## 🆕 Phase 11: Manual Cookies Implementation (2025-11-12)
+
+### Motivation
+Auto-verification requires:
+- External service accounts (SMS-Activate, 5sim)
+- API integration and testing
+- Costs (~$0.50 per verification)
+- Complex workflow with potential failure points
+
+**Manual cookies are simpler:**
+- User logs in to Bazos once
+- Copies cookies from browser
+- Actor uses cookies directly
+- No external services needed
+- Free and immediate
+
+### Implementation Details
+
+#### 1. Extended Input Interface
+Added to `Input` in `main.ts`:
+```typescript
+// Manual cookies (recommended - replaces auto-verification)
+bid?: string; // User ID (8-digit number)
+bkod?: string; // Auth token (10-char alphanumeric) - SECRET
+testcookie?: string; // Feature flag (default: "ano")
+```
+
+#### 2. Cookie Priority Logic
+Updated `main.ts` cookie setup:
+1. **Priority 1**: Manual cookies from input (if provided)
+   - Creates `BazosCookies` object from input
+   - Tests validity if `testCookiesBeforeRun` enabled
+2. **Priority 2**: Stored cookies from Key-Value Store
+   - Loads and tests existing cookies
+3. **Priority 3**: Auto-verification (COMMENTED OUT)
+   - Shows warning that it's not implemented
+   - Recommends using manual cookies instead
+
+#### 3. INPUT_SCHEMA.json Updates
+Added fields:
+- `bid` - User ID field with example
+- `bkod` - Auth token with `isSecret: true` ✅
+- `testcookie` - Feature flag with default "ano"
+- Updated descriptions to mention "NOT IMPLEMENTED" for auto-verification
+
+#### 4. Documentation Updates
+
+**README.md**:
+- New section: "Manual Cookies Setup"
+- Step-by-step guide for getting cookies from browser
+- Security notes about `bkod` encryption
+- Troubleshooting section
+
+**Input Examples**:
+- `basic.json` - no phone extraction
+- `with-phone-extraction.json` - with manual cookies (bid, bkod)
+- `advanced-filters.json` - with filters, no phone extraction
+- Updated `README.md` in examples folder
+
+#### 5. Code Marking
+Added warnings to unused files:
+- `src/services/external/tempPhoneService.ts` - "⚠️ CURRENTLY NOT USED"
+- `src/services/external/smsService.ts` - "⚠️ CURRENTLY NOT USED"
+- `src/workflows/verificationWorkflow.ts` - "⚠️ CURRENTLY NOT USED"
+- `src/services/bazos/phoneVerification.ts` - "⚠️ PARTIALLY IMPLEMENTED"
+
+Each file includes instructions for full implementation if needed in future.
+
+### Security
+
+- ✅ `bkod` marked as `isSecret: true` in INPUT_SCHEMA.json
+- ✅ Apify automatically encrypts secret fields
+- ✅ Cookies stored securely in Key-Value Store
+- ✅ Actor tests cookie validity before use
+
+### User Experience
+
+**Before** (auto-verification):
+1. Sign up with SMS service
+2. Get API key
+3. Add to Actor input
+4. Wait ~30s for verification
+5. Potentially fail due to API issues
+
+**After** (manual cookies):
+1. Login to Bazos in browser
+2. Copy 2 cookie values (F12 → Application → Cookies)
+3. Paste to Actor input
+4. Done! ✅
+
+### Result
+
+- ✅ Build successful
+- ✅ Manual cookies work immediately
+- ✅ Auto-verification preserved for future (commented out)
+- ✅ Clear documentation for both approaches
+- ✅ Security maintained (`bkod` as secret)
 
 ---
 

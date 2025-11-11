@@ -2,6 +2,19 @@
  * Phone Verification Service for Bazos.cz
  * Handles the verification process for accessing phone numbers on ads
  * 
+ * ⚠️ PARTIALLY IMPLEMENTED - Form submission NOT FULLY IMPLEMENTED
+ * 
+ * The extractVerificationFormData() function works for parsing HTML.
+ * The submit functions (submitPhoneForVerification, submitVerificationCode) are MOCK implementations.
+ * 
+ * The Actor now uses MANUAL COOKIES (bid, bkod) from input instead of auto-verification.
+ * 
+ * To fully implement auto-verification:
+ * 1. Implement real form submission with proper headers/cookies
+ * 2. Handle Bazos anti-bot protection
+ * 3. Test with real phone numbers
+ * 4. Uncomment auto-verification code in main.ts
+ * 
  * Based on analysis:
  * - Clicking "zobraz číslo" without cookies triggers verification form
  * - Form asks for user's phone number

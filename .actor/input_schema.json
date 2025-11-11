@@ -60,22 +60,44 @@
             "description": "Approximate number of how many ads you want to load.",
             "default": 100
         },
-        "enableAutoVerification": {
-            "title": "Enable automatic phone verification",
-            "type": "boolean",
-            "description": "Automatically verify account to extract phone numbers from ads. Requires phoneServiceConfig and smsServiceConfig.",
-            "default": false
+        "bid": {
+            "title": "Bazos User ID (bid)",
+            "type": "string",
+            "description": "Manual cookie: Bazos user ID (8-digit number). Required for phone extraction. Get it from browser console using the script in README.",
+            "editor": "textfield",
+            "example": "79580379"
+        },
+        "bkod": {
+            "title": "Bazos Auth Token (bkod)",
+            "type": "string",
+            "description": "Manual cookie: Authentication token (10-char alphanumeric). Required for phone extraction. Get it from browser console using the script in README.",
+            "editor": "textfield",
+            "isSecret": true,
+            "example": "HCIIFBA50J"
+        },
+        "testcookie": {
+            "title": "Test Cookie",
+            "type": "string",
+            "description": "Manual cookie: Feature flag (default: 'ano'). Usually not needed to change.",
+            "editor": "textfield",
+            "default": "ano"
         },
         "testCookiesBeforeRun": {
             "title": "Test cookies before run",
             "type": "boolean",
-            "description": "Test existing cookies validity before starting the scraper",
+            "description": "Test cookies validity before starting the scraper (recommended)",
             "default": true
         },
+        "enableAutoVerification": {
+            "title": "Enable automatic phone verification (NOT IMPLEMENTED)",
+            "type": "boolean",
+            "description": "NOT FULLY IMPLEMENTED - requires real API integration. Use manual cookies (bid, bkod) instead.",
+            "default": false
+        },
         "phoneServiceConfig": {
-            "title": "Phone service configuration",
+            "title": "Phone service configuration (NOT IMPLEMENTED)",
             "type": "object",
-            "description": "Configuration for temporary phone number service (required when enableAutoVerification is true)",
+            "description": "NOT FULLY IMPLEMENTED - External service integration pending. Use manual cookies instead.",
             "editor": "json",
             "properties": {
                 "provider": {
@@ -102,9 +124,9 @@
             }
         },
         "smsServiceConfig": {
-            "title": "SMS service configuration",
+            "title": "SMS service configuration (NOT IMPLEMENTED)",
             "type": "object",
-            "description": "Configuration for SMS receiving service (required when enableAutoVerification is true)",
+            "description": "NOT FULLY IMPLEMENTED - External service integration pending. Use manual cookies instead.",
             "editor": "json",
             "properties": {
                 "provider": {

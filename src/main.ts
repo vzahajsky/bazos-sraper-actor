@@ -17,10 +17,15 @@ export interface Input {
     distance: Nullable<number>;
     maxRequestsPerCrawl: number;
     
-    // Phone verification (optional)
+    // Manual cookies (recommended - replaces auto-verification)
+    bid?: string; // User ID (8-digit number)
+    bkod?: string; // Auth token (10-char alphanumeric) - SECRET
+    testcookie?: string; // Feature flag (default: "ano")
+    
+    // Phone verification (optional - currently NOT IMPLEMENTED, use manual cookies instead)
     phoneServiceConfig?: PhoneServiceConfig;
     smsServiceConfig?: SMSServiceConfig;
-    enableAutoVerification?: boolean; // default: false
+    enableAutoVerification?: boolean; // default: false - NOT IMPLEMENTED YET
     testCookiesBeforeRun?: boolean; // default: true
 }
 
@@ -44,29 +49,61 @@ const startUrls = createStartQueryUrls(userInput);
 // === Phone Verification Setup ===
 let cookies: BazosCookies | null = null;
 
-// Load and test cookies if enabled
-if (userInput.testCookiesBeforeRun !== false) {
-    log.info('Checking for existing cookies...');
-    cookies = await loadCookies();
+// Priority 1: Manual cookies from input (recommended)
+if (userInput.bid && userInput.bkod) {
+    log.info('Using manual cookies from input');
+    cookies = {
+        bid: userInput.bid,
+        bkod: userInput.bkod,
+        testcookie: userInput.testcookie || 'ano',
+        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+    };
     
-    if (cookies) {
-        log.info('Cookies found, testing validity...');
+    // Test manual cookies if enabled
+    if (userInput.testCookiesBeforeRun !== false) {
+        log.info('Testing manual cookies validity...');
         const isValid = await testCookies(cookies, TEST_AD_URL);
         
         if (!isValid) {
-            log.warning('Cookies are invalid, clearing them');
+            log.warning('Manual cookies are invalid! Please provide valid bid and bkod.');
+            cookies = null;
+        } else {
+            log.info('Manual cookies are valid, will use for phone extraction');
+        }
+    }
+}
+
+// Priority 2: Load cookies from storage (if no manual cookies)
+if (!cookies && userInput.testCookiesBeforeRun !== false) {
+    log.info('Checking for existing cookies in storage...');
+    cookies = await loadCookies();
+    
+    if (cookies) {
+        log.info('Cookies found in storage, testing validity...');
+        const isValid = await testCookies(cookies, TEST_AD_URL);
+        
+        if (!isValid) {
+            log.warning('Stored cookies are invalid, clearing them');
             await clearCookies();
             cookies = null;
         } else {
-            log.info('Cookies are valid, will use for phone extraction');
+            log.info('Stored cookies are valid, will use for phone extraction');
         }
     } else {
         log.info('No cookies found in storage');
     }
 }
 
-// Auto-verification if enabled and no valid cookies
+// Priority 3: Auto-verification if enabled and no valid cookies
+// NOTE: Auto-verification is currently NOT FULLY IMPLEMENTED
+// External services (temp phone, SMS) require real API integration
+// Use manual cookies instead (bid, bkod in input)
 if (!cookies && userInput.enableAutoVerification) {
+    log.warning('Auto-verification is currently NOT FULLY IMPLEMENTED');
+    log.warning('External services (temp phone, SMS) need real API endpoints');
+    log.warning('Please provide manual cookies (bid, bkod) in Actor input instead');
+    
+    /* COMMENTED OUT - NOT FULLY IMPLEMENTED
     if (!userInput.phoneServiceConfig || !userInput.smsServiceConfig) {
         throw new Error(
             'Auto-verification requires phoneServiceConfig and smsServiceConfig in input. ' +
@@ -85,12 +122,13 @@ if (!cookies && userInput.enableAutoVerification) {
         });
         throw new Error('Failed to obtain authentication cookies via auto-verification');
     }
+    */
 }
 
 if (!cookies) {
     log.warning(
         'No cookies available. Phone numbers will not be extracted from ads. ' +
-        'To enable phone extraction, set enableAutoVerification: true and provide API configs.'
+        'To enable phone extraction, provide manual cookies (bid, bkod) in Actor input.'
     );
 }
 // === End Phone Verification Setup ===
