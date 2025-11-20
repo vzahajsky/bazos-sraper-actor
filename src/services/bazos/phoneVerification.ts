@@ -35,7 +35,6 @@ export interface VerificationSession {
 export interface BazosCookies {
     bid: string;
     bkod: string;
-    testcookie: string;
     expiresAt: Date;
 }
 
@@ -220,7 +219,6 @@ export async function submitVerificationCode(
     const cookies: BazosCookies = {
         bid: fakeBid.toString(),
         bkod: fakeBkod,
-        testcookie: 'ano',
         expiresAt,
     };
     
@@ -269,7 +267,6 @@ export async function submitVerificationCode(
     return {
         bid: cookies.bid,
         bkod: cookies.bkod,
-        testcookie: cookies.testcookie || 'ano',
         expiresAt,
     };
     */

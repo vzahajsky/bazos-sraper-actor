@@ -60,97 +60,33 @@
             "description": "Approximate number of how many ads you want to load.",
             "default": 100
         },
+        "extractPhoneNumbers": {
+            "title": "Extract phone numbers",
+            "type": "boolean",
+            "description": "Enable phone number extraction from ads. Requires Bazos cookies (bid and bkod).",
+            "default": false,
+            "editor": "checkbox"
+        },
         "bid": {
             "title": "Bazos User ID (bid)",
             "type": "string",
-            "description": "Manual cookie: Bazos user ID (8-digit number). Required for phone extraction. Get it from browser console using the script in README.",
+            "description": "Manual cookie: Bazos user ID (8-digit number). Required when 'Extract phone numbers' is enabled. Get it from browser console using the script in README.",
             "editor": "textfield",
             "example": "79580379"
         },
         "bkod": {
             "title": "Bazos Auth Token (bkod)",
             "type": "string",
-            "description": "Manual cookie: Authentication token (10-char alphanumeric). Required for phone extraction. Get it from browser console using the script in README.",
+            "description": "Manual cookie: Authentication token (10-char alphanumeric). Required when 'Extract phone numbers' is enabled. Get it from browser console using the script in README.",
             "editor": "textfield",
             "isSecret": true,
             "example": "HCIIFBA50J"
         },
-        "testcookie": {
-            "title": "Test Cookie",
-            "type": "string",
-            "description": "Manual cookie: Feature flag (default: 'ano'). Usually not needed to change.",
-            "editor": "textfield",
-            "default": "ano"
-        },
         "testCookiesBeforeRun": {
             "title": "Test cookies before run",
             "type": "boolean",
-            "description": "Test cookies validity before starting the scraper (recommended)",
+            "description": "Test cookies validity before starting the scraper (recommended when extracting phone numbers)",
             "default": true
-        },
-        "enableAutoVerification": {
-            "title": "Enable automatic phone verification (NOT IMPLEMENTED)",
-            "type": "boolean",
-            "description": "NOT FULLY IMPLEMENTED - requires real API integration. Use manual cookies (bid, bkod) instead.",
-            "default": false
-        },
-        "phoneServiceConfig": {
-            "title": "Phone service configuration (NOT IMPLEMENTED)",
-            "type": "object",
-            "description": "NOT FULLY IMPLEMENTED - External service integration pending. Use manual cookies instead.",
-            "editor": "json",
-            "properties": {
-                "provider": {
-                    "title": "Provider",
-                    "type": "string",
-                    "description": "Phone service provider",
-                    "enum": ["sms-activate", "5sim", "custom"],
-                    "default": "sms-activate"
-                },
-                "apiKey": {
-                    "title": "API Key",
-                    "type": "string",
-                    "description": "API key from provider",
-                    "editor": "textfield",
-                    "isSecret": true
-                },
-                "apiUrl": {
-                    "title": "API URL",
-                    "type": "string",
-                    "description": "Provider API endpoint",
-                    "editor": "textfield",
-                    "default": "https://api.sms-activate.org/stubs/handler_api.php"
-                }
-            }
-        },
-        "smsServiceConfig": {
-            "title": "SMS service configuration (NOT IMPLEMENTED)",
-            "type": "object",
-            "description": "NOT FULLY IMPLEMENTED - External service integration pending. Use manual cookies instead.",
-            "editor": "json",
-            "properties": {
-                "provider": {
-                    "title": "Provider",
-                    "type": "string",
-                    "description": "SMS service provider",
-                    "enum": ["sms-activate", "5sim", "custom"],
-                    "default": "sms-activate"
-                },
-                "apiKey": {
-                    "title": "API Key",
-                    "type": "string",
-                    "description": "API key from provider",
-                    "editor": "textfield",
-                    "isSecret": true
-                },
-                "apiUrl": {
-                    "title": "API URL",
-                    "type": "string",
-                    "description": "Provider API endpoint",
-                    "editor": "textfield",
-                    "default": "https://api.sms-activate.org/stubs/handler_api.php"
-                }
-            }
         }
     },
     "required": [

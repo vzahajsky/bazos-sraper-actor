@@ -126,7 +126,7 @@ export async function testCookies(
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Cookie': `bid=${cookies.bid}; bkod=${cookies.bkod}; testcookie=${cookies.testcookie}`,
+                'Cookie': `bid=${cookies.bid}; bkod=${cookies.bkod}; testcookie=ano`,
             },
             body: params,
         });
