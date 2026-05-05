@@ -38,7 +38,7 @@
             "nullable": true
         },
         "distance": {
-            "title": "Price to",
+            "title": "Distance",
             "type": "integer",
             "description": "The size of the circle in which to look.",
             "editor": "number",
