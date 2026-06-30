@@ -59,6 +59,34 @@
             "type": "integer",
             "description": "Approximate number of how many ads you want to load.",
             "default": 100
+        },
+        "extractPhoneNumbers": {
+            "title": "Extract phone numbers",
+            "type": "boolean",
+            "description": "Enable phone number extraction from ads. Requires Bazos cookies (bid and bkod).",
+            "default": false,
+            "editor": "checkbox"
+        },
+        "bid": {
+            "title": "Bazos User ID (bid)",
+            "type": "string",
+            "description": "Manual cookie: Bazos user ID (8-digit number). Required when 'Extract phone numbers' is enabled. Get it from browser console using the script in README.",
+            "editor": "textfield",
+            "example": "79580379"
+        },
+        "bkod": {
+            "title": "Bazos Auth Token (bkod)",
+            "type": "string",
+            "description": "Manual cookie: Authentication token (10-char alphanumeric). Required when 'Extract phone numbers' is enabled. Get it from browser console using the script in README.",
+            "editor": "textfield",
+            "isSecret": true,
+            "example": "HCIIFBA50J"
+        },
+        "testCookiesBeforeRun": {
+            "title": "Test cookies before run",
+            "type": "boolean",
+            "description": "Test cookies validity before starting the scraper (recommended when extracting phone numbers)",
+            "default": true
         }
     },
     "required": [

@@ -1,0 +1,9 @@
+{
+  "countryCode": "cz",
+  "searchQueries": ["kočárek", "autosedačka"],
+  "maxRequestsPerCrawl": 100,
+  "minPrice": null,
+  "maxPrice": null,
+  "postalCode": null,
+  "distance": null
+}

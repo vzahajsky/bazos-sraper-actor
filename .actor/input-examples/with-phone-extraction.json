@@ -1,0 +1,8 @@
+{
+  "countryCode": "cz",
+  "searchQueries": ["kočárek"],
+  "maxRequestsPerCrawl": 50,
+  "bid": "YOUR_BID_HERE",
+  "bkod": "YOUR_BKOD_HERE",
+  "testCookiesBeforeRun": true
+}
